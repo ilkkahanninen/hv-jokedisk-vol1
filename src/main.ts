@@ -59,13 +59,33 @@ const laughterAudios = [
     })
 );
 
-const appendJoke = (url: URL, onEnd: () => void) => {
-  const audio = document.createElement("audio");
+const appendJoke = (name: string, url: URL, onEnd: () => void) => {
+  const audio = new Audio();
   audio.src = url.href;
-  audio.controls = true;
-  document.body.append(audio);
 
-  audio.onended = onEnd;
+  const item = document.createElement("li");
+  item.textContent = name;
+  // audio.controls = true;
+  // item.appendChild(audio);
+  const play = document.createElement("span");
+  play.className = "play";
+  item.appendChild(play);
+  play.onclick = () => {
+    if (audio.paused) {
+      play.className = "play playing";
+      audio.play();
+    } else {
+      play.className = "play";
+      audio.pause();
+      audio.currentTime = 0;
+    }
+  };
+  document.querySelector("#joket")?.append(item);
+
+  audio.onended = () => {
+    onEnd();
+    play.className = "play";
+  };
 };
 
 const randomizeNames = () => {
@@ -124,7 +144,11 @@ Promise.all(laughterAudios).then((laughters) => {
     vaelk();
   };
 
-  appendJoke(new URL("./vitsit/bloober1.mp3", import.meta.url), laugh);
+  appendJoke(
+    "Epäonnistunut vitsi",
+    new URL("./vitsit/bloober1.mp3", import.meta.url),
+    laugh
+  );
 
-  window.onclick = laugh;
+  // window.onclick = laugh;
 });

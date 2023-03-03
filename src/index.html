@@ -17,11 +17,66 @@
         right: 20px;
         display: none;
       }
+      @-webkit-keyframes rotating /* Safari and Chrome */ {
+        from {
+          -webkit-transform: rotate(0deg);
+          -o-transform: rotate(0deg);
+          transform: rotate(0deg);
+        }
+        to {
+          -webkit-transform: rotate(360deg);
+          -o-transform: rotate(360deg);
+          transform: rotate(360deg);
+        }
+      }
+      @keyframes rotating {
+        from {
+          -ms-transform: rotate(0deg);
+          -moz-transform: rotate(0deg);
+          -webkit-transform: rotate(0deg);
+          -o-transform: rotate(0deg);
+          transform: rotate(0deg);
+        }
+        to {
+          -ms-transform: rotate(360deg);
+          -moz-transform: rotate(360deg);
+          -webkit-transform: rotate(360deg);
+          -o-transform: rotate(360deg);
+          transform: rotate(360deg);
+        }
+      }
+      .rotating {
+        -webkit-animation: rotating 3s linear infinite;
+        -moz-animation: rotating 3s linear infinite;
+        -ms-animation: rotating 3s linear infinite;
+        -o-animation: rotating 3s linear infinite;
+        animation: rotating 3s linear infinite;
+      }
+
+      #joket li {
+        display: flex;
+        align-items: center;
+      }
+      .play {
+        margin-left: 10px;
+        background: white;
+        color: black;
+        border-radius: 99999px;
+        padding: 5px 10px;
+        cursor: pointer;
+      }
+      .play::before {
+        content: "▶";
+      }
+      .play.playing::before {
+        content: "◼";
+      }
     </style>
   </head>
   <body>
     <h1>Hüümoer Weicot – Joke Disc vol. 1</h1>
-    <img class="naur" src="naurnaur.gif" />
+    <img class="naur rotating" src="naurnaur.gif" />
     <script type="module" src="main.ts"></script>
+    <ul id="joket"></ul>
   </body>
 </html>
